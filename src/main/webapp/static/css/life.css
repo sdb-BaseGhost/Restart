@@ -256,38 +256,48 @@ body {
 .event-log {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 4px;
     padding: 1.5rem;
     max-height: 400px;
     overflow-y: auto;
 }
-.event-log-item {
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
+.event-log p {
+    text-indent: 2em;
+    margin-bottom: 0.3rem;
     font-size: 0.9rem;
+    line-height: 2.2;
 }
-.event-log-item:last-child {
-    border-bottom: none;
+.event-log .event-tag {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+.event-log .age-marker {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.8rem;
+    letter-spacing: 2px;
 }
 
 /* 下一年按钮 */
 .btn-next-year {
-    background: var(--accent-gradient);
-    color: #000;
+    background: var(--accent-gold);
+    color: var(--bg-primary);
     border: none;
-    padding: 16px 48px;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    font-weight: 600;
+    padding: 12px 40px;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
     display: block;
     margin: 2rem auto;
-    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 3px;
+    font-family: "Noto Serif SC", "SimSun", serif;
+    transition: opacity 0.2s;
 }
 .btn-next-year:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,240,255,0.2);
+    opacity: 0.85;
 }
 
 /* 天赋卡片 */
