@@ -380,28 +380,35 @@ body {
 /* 结局页面 */
 .ending-container {
     text-align: center;
-    padding: 4rem 0;
+    padding: 3rem 0;
+    max-width: 520px;
+    margin: 0 auto;
 }
 .ending-name {
-    font-size: 3rem;
-    font-weight: 200;
-    margin-bottom: 1rem;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: 4px;
 }
 .ending-desc {
     color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 3rem;
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    font-style: italic;
 }
 .ending-stats {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    max-width: 800px;
-    margin: 0 auto 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    text-align: left;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem;
+    background: var(--bg-card);
 }
 
 /* 排行榜 */
@@ -508,9 +515,6 @@ body {
     }
     .attr-panel {
         grid-template-columns: 1fr;
-    }
-    .ending-stats {
-        grid-template-columns: repeat(2, 1fr);
     }
     .talent-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

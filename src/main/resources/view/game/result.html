@@ -12,6 +12,7 @@
     <div class="main-container">
         <div class="ending-container">
             <!-- 结局名称 -->
+            <div style="font-size:0.8rem; color:var(--text-secondary); letter-spacing:3px; margin-bottom:0.5rem;">— 终 章 —</div>
             <div class="ending-name">#(state.endingName)</div>
 
             <!-- 结局描述 -->
@@ -63,11 +64,11 @@
 
             <!-- 事件回顾 -->
             <div style="max-width:600px; margin:0 auto 3rem;">
-                <h3 style="font-weight:400; margin-bottom:1rem; text-align:left;">事件回顾</h3>
+                <h3 style="font-weight:bold; margin-bottom:1rem; text-align:center; color:var(--text-secondary); letter-spacing:2px; font-size:1rem;">— 人生回顾 —</h3>
                 <div class="event-log">
                     #if(state.eventLog)
                         #for(event : state.eventLog)
-                        <div class="event-log-item">#(event)</div>
+                        <p>#(event)</p>
                         #end
                     #end
                 </div>
@@ -75,8 +76,8 @@
 
             <!-- 操作按钮 -->
             <div style="display:flex; gap:1rem; justify-content:center;">
-                <a href="/game/start" class="btn-primary">再来一次</a>
-                <a href="/" class="btn-outline">返回首页</a>
+                <a href="/game/start" class="btn-primary">再续前缘</a>
+                <a href="/" class="btn-outline">归去来兮</a>
             </div>
         </div>
     </div>
