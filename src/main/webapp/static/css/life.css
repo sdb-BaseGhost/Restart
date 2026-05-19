@@ -74,34 +74,38 @@ body {
 
 /* 按钮 */
 .btn-primary {
-    background: var(--accent-gradient);
-    color: #000;
+    background: var(--accent-gold);
+    color: var(--bg-primary);
     border: none;
-    padding: 12px 32px;
-    border-radius: 8px;
+    padding: 10px 32px;
+    border-radius: 3px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
     transition: opacity 0.2s;
     display: inline-block;
     text-decoration: none;
+    letter-spacing: 3px;
+    font-family: "Noto Serif SC", "SimSun", serif;
 }
 .btn-primary:hover {
-    opacity: 0.9;
+    opacity: 0.85;
 }
 .btn-outline {
     background: transparent;
     color: var(--text-primary);
-    border: 1px solid var(--border);
-    padding: 10px 24px;
-    border-radius: 8px;
+    border: 1px solid var(--border-decorative);
+    padding: 8px 24px;
+    border-radius: 3px;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: background 0.2s;
     display: inline-block;
     text-decoration: none;
+    letter-spacing: 1px;
+    font-family: "Noto Serif SC", "SimSun", serif;
 }
 .btn-outline:hover {
-    border-color: var(--accent-cyan);
+    background: rgba(139, 105, 20, 0.08);
 }
 
 /* 首页英雄区 */
@@ -129,42 +133,47 @@ body {
     min-height: 60vh;
 }
 .auth-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 3rem;
+    background: var(--bg-secondary);
+    border: 3px double var(--border-decorative);
+    border-radius: 4px;
+    padding: 2.5rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
 }
 .auth-card h2 {
-    font-size: 1.8rem;
-    font-weight: 300;
+    font-size: 1.5rem;
+    font-weight: bold;
     margin-bottom: 2rem;
     text-align: center;
+    letter-spacing: 4px;
+    color: var(--text-primary);
 }
 .form-group {
     margin-bottom: 1.5rem;
 }
 .form-group input {
     width: 100%;
-    padding: 12px 16px;
-    background: var(--bg-secondary);
+    padding: 10px 14px;
+    background: var(--bg-primary);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 2px;
     color: var(--text-primary);
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-family: "Noto Serif SC", "SimSun", serif;
 }
 .form-group input:focus {
     outline: none;
-    border-color: var(--accent-cyan);
+    border-color: var(--accent-gold);
+    border-width: 2px;
 }
 .error-msg {
-    background: rgba(255,71,87,0.1);
+    background: rgba(160, 82, 45, 0.1);
     color: var(--danger);
-    padding: 10px 16px;
-    border-radius: 8px;
+    padding: 8px 14px;
+    border-radius: 2px;
     margin-bottom: 1rem;
     font-size: 0.9rem;
+    border-left: 3px solid var(--danger);
 }
 .auth-link {
     text-align: center;
@@ -172,8 +181,11 @@ body {
     color: var(--text-secondary);
 }
 .auth-link a {
-    color: var(--accent-cyan);
+    color: var(--accent-gold);
     text-decoration: none;
+}
+.auth-link a:hover {
+    text-decoration: underline;
 }
 
 /* 属性面板 */
