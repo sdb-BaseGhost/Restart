@@ -18,7 +18,7 @@ public class GameState implements Serializable {
     private int luck;                         // 幸运
     private int wealth;                       // 财富
     private int health;                       // 健康（初始 50）
-    private int happiness;                    // 快乐（初始 50）
+    private int knowledge;                    // 学识（初始 0）
     private int social;                       // 社交（初始 50）
     private int achievement;                  // 成就
     private List<Integer> selectedTalents;    // 已选天赋 ID
@@ -93,12 +93,12 @@ public class GameState implements Serializable {
         this.health = health;
     }
 
-    public int getHappiness() {
-        return happiness;
+    public int getKnowledge() {
+        return knowledge;
     }
 
-    public void setHappiness(int happiness) {
-        this.happiness = happiness;
+    public void setKnowledge(int knowledge) {
+        this.knowledge = knowledge;
     }
 
     public int getSocial() {
@@ -174,5 +174,25 @@ public class GameState implements Serializable {
      */
     public boolean isGameOver() {
         return !alive || endingName != null;
+    }
+
+    /**
+     * 导出当前状态为条件表达式可用的属性 Map
+     * key 为大写缩写，供 ConditionParser 使用
+     */
+    public Map<String, Integer> toConditionMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("AGE", age);
+        map.put("INT", intelligence);
+        map.put("CHR", appearance);
+        map.put("STR", constitution);
+        map.put("FAM", family);
+        map.put("LCK", luck);
+        map.put("WLT", wealth);
+        map.put("HLT", health);
+        map.put("KNL", knowledge);
+        map.put("SOC", social);
+        map.put("ACH", achievement);
+        return map;
     }
 }

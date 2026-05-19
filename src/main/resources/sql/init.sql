@@ -49,7 +49,9 @@ CREATE TABLE IF NOT EXISTS `event` (
   `rarity` VARCHAR(20) DEFAULT 'common',
   `type` VARCHAR(20) DEFAULT 'normal',
   `effects` VARCHAR(500),
-  `weight` INT DEFAULT 10
+  `weight` INT DEFAULT 10,
+  `include_cond` VARCHAR(500) COMMENT '触发条件表达式，为空表示无条件',
+  `exclude_cond` VARCHAR(500) COMMENT '排除条件表达式，为空不排除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ------------------------------------------------------------
@@ -191,3 +193,6 @@ INSERT INTO `ending` (`name`, `description`, `condition_type`, `condition_value`
 ('家庭美满', '你拥有一个幸福的家庭，这比什么都重要', 'special', '{"attribute":"happiness","threshold":80,"talent_id":0}', 50),
 ('健身达人', '你成为了一名健身教练，身材超棒', 'attribute_high', '{"attribute":"health","threshold":90}', 50),
 ('学术不端', '你在学术道路上走了歪路，身败名裂', 'special', '{"attribute":"intelligence","threshold":70,"talent_id":0}', 10);
+
+
+ALTER TABLE `event` ADD COLUMN `include_cond` VARCHAR(500) COMMENT '触发条件，为空无条件';

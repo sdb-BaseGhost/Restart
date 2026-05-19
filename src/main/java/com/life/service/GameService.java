@@ -59,7 +59,8 @@ public class GameService {
 
         String pool = GameEngine.getEventPool(state.getAge());
         List<Event> poolEvents = CacheService.me.getEventsByPool(pool);
-        Event event = GameEngine.selectRandomEvent(poolEvents);
+        List<Event> filtered = GameEngine.filterEventsByCondition(state, poolEvents);
+        Event event = GameEngine.selectRandomEvent(filtered);
 
         if (event != null) {
             GameEngine.applyEventEffect(state, event.getStr("effects"));
@@ -91,7 +92,7 @@ public class GameService {
         gr.set("final_age", state.getAge());
         gr.set("wealth", state.getWealth());
         gr.set("health", state.getHealth());
-        gr.set("happiness", state.getHappiness());
+        gr.set("happiness", state.getKnowledge());
         gr.set("social", state.getSocial());
         gr.set("achievement", state.getAchievement());
         gr.set("ending_name", state.getEndingName());

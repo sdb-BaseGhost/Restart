@@ -137,6 +137,39 @@ public class GameEngine {
     }
 
     /**
+     * 按条件过滤事件：只保留 include_cond 满足且 exclude_cond 不满足的事件
+     * 条件为空/null 表示无条件（通过）
+     */
+    public static List<Event> filterEventsByCondition(GameState state, List<Event> events) {
+        if (events == null || events.isEmpty()) {
+            return events;
+        }
+        Map<String, Integer> props = state.toConditionMap();
+        List<Event> filtered = new ArrayList<>();
+        for (Event event : events) {
+            String includeCond = event.getStr("include_cond");
+            String excludeCond = event.getStr("exclude_cond");
+
+            // include_cond 为空表示无条件触发，非空则必须满足
+            if (includeCond != null && !includeCond.isEmpty()) {
+                if (!ConditionParser.evaluate(includeCond, props)) {
+                    continue;
+                }
+            }
+
+            // exclude_cond 为空表示不排除，非空则满足时排除
+            if (excludeCond != null && !excludeCond.isEmpty()) {
+                if (ConditionParser.evaluate(excludeCond, props)) {
+                    continue;
+                }
+            }
+
+            filtered.add(event);
+        }
+        return filtered;
+    }
+
+    /**
      * 按 weight 加权随机选择一个事件
      */
     public static Event selectRandomEvent(List<Event> events) {
@@ -285,8 +318,8 @@ public class GameEngine {
 
         // 固定初始值
         state.setAge(0);
-        state.setHealth(50);
-        state.setHappiness(50);
+        state.setHealth(100);
+        state.setKnowledge(0);
         state.setSocial(50);
         state.setWealth(20);
         state.setAchievement(0);
@@ -307,7 +340,7 @@ public class GameEngine {
     /**
      * 将属性变化应用到 state，支持的属性名：
      * intelligence, appearance, constitution, family, luck,
-     * wealth, health, happiness, social, achievement
+     * wealth, health, knowledge, social, achievement
      * 变化后 clamp 到 0-100（财富和成就无上限）
      */
     private static void applyAttributeBonus(GameState state, String attr, int value) {
@@ -333,8 +366,8 @@ public class GameEngine {
             case "health":
                 state.setHealth(clamp(state.getHealth() + value, 0, 100));
                 break;
-            case "happiness":
-                state.setHappiness(clamp(state.getHappiness() + value, 0, 100));
+            case "knowledge":
+                state.setKnowledge(clamp(state.getKnowledge() + value, 0, 100));
                 break;
             case "social":
                 state.setSocial(clamp(state.getSocial() + value, 0, 100));
@@ -350,19 +383,11 @@ public class GameEngine {
 
     /**
      * 属性联动：在事件效果应用后调用
-     * - health <= 20 时，happiness 每岁额外 -2
      * - wealth <= 0 时，health 每岁 -1
-     * - social > 70 时，happiness 有额外 +1
      */
     private static void applyAttributeLinks(GameState state) {
-        if (state.getHealth() <= 20) {
-            state.setHappiness(clamp(state.getHappiness() - 2, 0, 100));
-        }
         if (state.getWealth() <= 0) {
             state.setHealth(clamp(state.getHealth() - 1, 0, 100));
-        }
-        if (state.getSocial() > 70) {
-            state.setHappiness(clamp(state.getHappiness() + 1, 0, 100));
         }
     }
 
@@ -437,7 +462,7 @@ public class GameEngine {
             case "luck":         return state.getLuck();
             case "wealth":       return state.getWealth();
             case "health":       return state.getHealth();
-            case "happiness":    return state.getHappiness();
+            case "knowledge":    return state.getKnowledge();
             case "social":       return state.getSocial();
             case "achievement":  return state.getAchievement();
             default:             return 0;
