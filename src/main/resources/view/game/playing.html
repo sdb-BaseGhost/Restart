@@ -185,10 +185,10 @@
                 </div>
 
                 <!-- 事件日志 -->
-                <div class="event-log">
+                <div class="event-log" id="eventLog">
                     #if(state.eventLog)
-                        #for(event : state.eventLog)
-                        <div class="event-log-item">#(event)</div>
+                        #for(i = state.eventLog.size() - 1; i >= 0; i--)
+                        <div class="event-log-item">#(state.eventLog[i])</div>
                         #end
                     #end
                 </div>
@@ -203,5 +203,9 @@
     </div>
     #include("../common/footer.html")
     <script src="/static/layui/layui.js"></script>
+    <script>
+        var log = document.getElementById('eventLog');
+        if (log) log.scrollTop = 0;
+    </script>
 </body>
 </html>
