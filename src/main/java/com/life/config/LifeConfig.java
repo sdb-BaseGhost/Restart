@@ -32,7 +32,7 @@ public class LifeConfig extends JFinalConfig {
 
     @Override
     public void configEngine(Engine me) {
-        me.setBaseTemplatePath("D:/enterprise335/target/enterprise335-1.0-SNAPSHOT/WEB-INF/view/");
+        me.setBaseTemplatePath("src/main/webapp/WEB-INF/view/");
     }
 
     @Override
