@@ -29,15 +29,15 @@ body {
 
 /* 导航栏 */
 .nav-bar {
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border);
+    background: var(--accent-gold);
+    border-bottom: 2px solid var(--border-decorative);
     padding: 0 2rem;
-    height: 60px;
+    height: 52px;
     display: flex;
     align-items: center;
 }
 .nav-content {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
     width: 100%;
     display: flex;
@@ -45,19 +45,23 @@ body {
     align-items: center;
 }
 .nav-logo {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--bg-primary);
     text-decoration: none;
+    letter-spacing: 2px;
 }
 .nav-links a {
-    color: var(--text-secondary);
+    color: var(--bg-primary);
     text-decoration: none;
     margin-left: 1.5rem;
-    transition: color 0.2s;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
 }
 .nav-links a:hover {
-    color: var(--accent-cyan);
+    opacity: 1;
 }
 
 /* 主容器 */
@@ -454,6 +458,7 @@ body {
     color: var(--text-secondary);
     font-size: 0.85rem;
     border-top: 1px solid var(--border);
+    font-style: italic;
 }
 
 /* 响应式 */
