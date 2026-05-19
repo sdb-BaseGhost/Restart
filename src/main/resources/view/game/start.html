@@ -10,11 +10,11 @@
 <body>
     #include("../common/header.html")
     <div class="main-container">
-        <h2 style="font-weight:300; font-size:1.8rem; margin-bottom:2rem; text-align:center;">开始新人生</h2>
+        <h2 style="font-weight:bold; font-size:1.5rem; margin-bottom:2rem; text-align:center; letter-spacing:3px; color:var(--text-secondary);">— 开始新人生 —</h2>
 
         <!-- 属性分配区域 -->
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem; max-width:500px; margin-left:auto; margin-right:auto;">
-            <h3 style="font-weight:400; margin-bottom:1.5rem;">属性分配</h3>
+        <div style="background:var(--bg-card); border:2px double var(--border-decorative); border-radius:4px; padding:2rem; margin-bottom:2rem; max-width:500px; margin-left:auto; margin-right:auto;">
+            <h3 style="font-weight:400; margin-bottom:1.5rem;">— 属性分配 —</h3>
             <div class="points-remaining">剩余点数：<span id="pointsLeft">20</span></div>
 
             <div class="attr-alloc">
@@ -55,8 +55,8 @@
         </div>
 
         <!-- 天赋选择区域 -->
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem; max-width:900px; margin-left:auto; margin-right:auto;">
-            <h3 style="font-weight:400; margin-bottom:0.5rem;">天赋选择</h3>
+        <div style="background:var(--bg-card); border:2px double var(--border-decorative); border-radius:4px; padding:2rem; margin-bottom:2rem; max-width:900px; margin-left:auto; margin-right:auto;">
+            <h3 style="font-weight:400; margin-bottom:0.5rem;">— 天赋选择 —</h3>
             <p style="color:var(--text-secondary); margin-bottom:1.5rem; font-size:0.9rem;">最多选择 3 个天赋</p>
 
             <div class="talent-grid">
@@ -79,7 +79,7 @@
             <input type="hidden" name="family" id="input-fam" value="0">
             <input type="hidden" name="luck" id="input-luk" value="0">
             <div id="talent-inputs"></div>
-            <button type="submit" class="btn-primary" style="width:100%; padding:16px;" onclick="return validateStart()">开始人生</button>
+            <button type="submit" class="btn-primary" style="width:100%; padding:16px;" onclick="return validateStart()">踏入人生</button>
         </form>
     </div>
     #include("../common/footer.html")
