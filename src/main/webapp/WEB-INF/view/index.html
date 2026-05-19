@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>人生重开模拟器</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/life.css">
+</head>
+<body>
+    #include("common/header.html")
+    <div class="main-container">
+
+        <!-- 英雄区域 -->
+        <div class="hero">
+            <h1>人生重开模拟器</h1>
+            <p>每个人的人生都值得重来一次</p>
+            #if(loginUser)
+                <a href="/game/start" class="btn-primary">开始游戏</a>
+            #else
+                <a href="/user/login" class="btn-primary">登录后开始</a>
+            #end
+        </div>
+
+        <!-- 排行榜区域 -->
+        <div class="rank-section">
+            <h2 style="text-align:center; margin-bottom:1.5rem; font-weight:300; font-size:1.8rem;">排行榜</h2>
+
+            <div class="rank-tabs">
+                <button class="rank-tab active" onclick="switchTab('achievement')">成就榜</button>
+                <button class="rank-tab" onclick="switchTab('wealth')">财富榜</button>
+                <button class="rank-tab" onclick="switchTab('age')">长寿榜</button>
+            </div>
+
+            <!-- 成就榜 -->
+            <div class="rank-panel" id="tab-achievement">
+                <table class="rank-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>昵称</th>
+                            <th>成就分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #for(item : achievementRank)
+                        <tr>
+                            <td>#(for.index + 1)</td>
+                            <td>#(item.nickname)</td>
+                            <td>#(item.score)</td>
+                        </tr>
+                        #end
+                        #if(!achievementRank || achievementRank.size() == 0)
+                        <tr>
+                            <td colspan="3" style="text-align:center; color:var(--text-secondary);">暂无数据</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 财富榜 -->
+            <div class="rank-panel" id="tab-wealth" style="display:none;">
+                <table class="rank-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>昵称</th>
+                            <th>财富</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #for(item : wealthRank)
+                        <tr>
+                            <td>#(for.index + 1)</td>
+                            <td>#(item.nickname)</td>
+                            <td>#(item.score)</td>
+                        </tr>
+                        #end
+                        #if(!wealthRank || wealthRank.size() == 0)
+                        <tr>
+                            <td colspan="3" style="text-align:center; color:var(--text-secondary);">暂无数据</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 长寿榜 -->
+            <div class="rank-panel" id="tab-age" style="display:none;">
+                <table class="rank-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>昵称</th>
+                            <th>年龄</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #for(item : ageRank)
+                        <tr>
+                            <td>#(for.index + 1)</td>
+                            <td>#(item.nickname)</td>
+                            <td>#(item.score)</td>
+                        </tr>
+                        #end
+                        #if(!ageRank || ageRank.size() == 0)
+                        <tr>
+                            <td colspan="3" style="text-align:center; color:var(--text-secondary);">暂无数据</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    #include("common/footer.html")
+    <script src="/static/layui/layui.js"></script>
+    <script>
+        function switchTab(name) {
+            var panels = document.querySelectorAll('.rank-panel');
+            for (var i = 0; i < panels.length; i++) {
+                panels[i].style.display = 'none';
+            }
+            document.getElementById('tab-' + name).style.display = 'block';
+
+            var tabs = document.querySelectorAll('.rank-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

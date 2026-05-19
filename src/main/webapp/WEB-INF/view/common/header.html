@@ -1,0 +1,16 @@
+<nav class="nav-bar">
+    <div class="nav-content">
+        <a href="/" class="nav-logo">人生重开模拟器</a>
+        <div class="nav-links">
+            #if(loginUser)
+                <a href="/game/start">开始游戏</a>
+                <a href="/game/history">历史记录</a>
+                <a href="/user/profile">个人中心</a>
+                <a href="/user/logout">退出</a>
+            #else
+                <a href="/user/login">登录</a>
+                <a href="/user/register">注册</a>
+            #end
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>历史记录 - 人生重开模拟器</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/life.css">
+</head>
+<body>
+    #include("../common/header.html")
+    <div class="main-container">
+        <h2 style="font-weight:300; font-size:1.8rem; margin-bottom:2rem;">历史记录</h2>
+
+        <table class="rank-table">
+            <thead>
+                <tr>
+                    <th>终止年龄</th>
+                    <th>财富</th>
+                    <th>健康</th>
+                    <th>快乐</th>
+                    <th>社交</th>
+                    <th>成就</th>
+                    <th>结局</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                #if(page && page.list)
+                    #for(record : page.list)
+                    <tr>
+                        <td>#(record.final_age) 岁</td>
+                        <td>#(record.wealth)</td>
+                        <td>#(record.health)</td>
+                        <td>#(record.happiness)</td>
+                        <td>#(record.social)</td>
+                        <td>#(record.achievement)</td>
+                        <td>#(record.ending_name)</td>
+                        <td>#(record.create_time)</td>
+                        <td>
+                            <form action="/game/delete" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="#(record.id)">
+                                <button type="submit" class="btn-outline" style="padding:4px 12px; font-size:0.8rem; border-color:var(--danger); color:var(--danger);"
+                                        onclick="return confirm('确定删除此记录？')">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    #end
+                #end
+                #if(!page || !page.list || page.list.size() == 0)
+                <tr>
+                    <td colspan="9" style="text-align:center; color:var(--text-secondary); padding:3rem;">暂无游戏记录，<a href="/game/start" style="color:var(--accent-cyan);">去开始新人生</a></td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+
+        <!-- 分页 -->
+        #if(page && page.totalPage > 1)
+        <div class="pagination">
+            #if(page.pageNumber > 1)
+                <a href="/game/history?page=#(page.pageNumber - 1)">上一页</a>
+            #end
+            #for(i : page.pageRange)
+                #if(i == page.pageNumber)
+                    <span class="current">#(i)</span>
+                #else
+                    <a href="/game/history?page=#(i)">#(i)</a>
+                #end
+            #end
+            #if(page.pageNumber < page.totalPage)
+                <a href="/game/history?page=#(page.pageNumber + 1)">下一页</a>
+            #end
+        </div>
+        #end
+    </div>
+    #include("../common/footer.html")
+    <script src="/static/layui/layui.js"></script>
+</body>
+</html>

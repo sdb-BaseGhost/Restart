@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人中心 - 人生重开模拟器</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/life.css">
+</head>
+<body>
+    #include("../common/header.html")
+    <div class="main-container">
+        <div class="profile-container" style="max-width:600px; margin:2rem auto;">
+            <h2 style="font-weight:300; font-size:1.8rem; margin-bottom:2rem;">个人中心</h2>
+
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem;">
+                <div style="margin-bottom:1rem;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">用户名</span>
+                    <p style="font-size:1.1rem; margin-top:0.3rem;">#(loginUser.username)</p>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">昵称</span>
+                    <p style="font-size:1.1rem; margin-top:0.3rem;">#(loginUser.nickname)</p>
+                </div>
+                <div>
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">注册时间</span>
+                    <p style="font-size:1.1rem; margin-top:0.3rem;">#(loginUser.create_time)</p>
+                </div>
+            </div>
+
+            <!-- 修改昵称 -->
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem;">
+                <h3 style="font-weight:400; margin-bottom:1.5rem;">修改昵称</h3>
+                #if(updateMsg)
+                <div class="error-msg" style="background:rgba(46,213,115,0.1); color:var(--success);">#(updateMsg)</div>
+                #end
+                #if(updateErr)
+                <div class="error-msg">#(updateErr)</div>
+                #end
+                <form action="/user/update" method="post">
+                    <div class="form-group">
+                        <input type="text" name="nickname" placeholder="新昵称" value="#(loginUser.nickname)" required>
+                    </div>
+                    <button type="submit" class="btn-primary">保存修改</button>
+                </form>
+            </div>
+
+            <!-- 注销账号 -->
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem;">
+                <h3 style="font-weight:400; margin-bottom:1rem; color:var(--danger);">危险操作</h3>
+                <p style="color:var(--text-secondary); margin-bottom:1rem; font-size:0.9rem;">注销账号将删除所有游戏记录，此操作不可恢复。</p>
+                <button class="btn-outline" style="border-color:var(--danger); color:var(--danger);"
+                        onclick="if(confirm('确定要注销账号吗？所有数据将被删除！')) window.location.href='/user/deleteAccount'">
+                    注销账号
+                </button>
+            </div>
+        </div>
+    </div>
+    #include("../common/footer.html")
+    <script src="/static/layui/layui.js"></script>
+</body>
+</html>

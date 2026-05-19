@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>开始游戏 - 人生重开模拟器</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/life.css">
+</head>
+<body>
+    #include("../common/header.html")
+    <div class="main-container">
+        <h2 style="font-weight:300; font-size:1.8rem; margin-bottom:2rem; text-align:center;">开始新人生</h2>
+
+        <!-- 属性分配区域 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem; max-width:500px; margin-left:auto; margin-right:auto;">
+            <h3 style="font-weight:400; margin-bottom:1.5rem;">属性分配</h3>
+            <div class="points-remaining">剩余点数：<span id="pointsLeft">20</span></div>
+
+            <div class="attr-alloc">
+                <label>智力</label>
+                <button class="btn-alloc" type="button" onclick="changeAttr('int', -1)">-</button>
+                <span class="attr-val" id="val-int">0</span>
+                <button class="btn-alloc" type="button" onclick="changeAttr('int', 1)">+</button>
+            </div>
+            <div class="attr-alloc">
+                <label>颜值</label>
+                <button class="btn-alloc" type="button" onclick="changeAttr('chr', -1)">-</button>
+                <span class="attr-val" id="val-chr">0</span>
+                <button class="btn-alloc" type="button" onclick="changeAttr('chr', 1)">+</button>
+            </div>
+            <div class="attr-alloc">
+                <label>体质</label>
+                <button class="btn-alloc" type="button" onclick="changeAttr('phy', -1)">-</button>
+                <span class="attr-val" id="val-phy">0</span>
+                <button class="btn-alloc" type="button" onclick="changeAttr('phy', 1)">+</button>
+            </div>
+            <div class="attr-alloc">
+                <label>家境</label>
+                <button class="btn-alloc" type="button" onclick="changeAttr('fam', -1)">-</button>
+                <span class="attr-val" id="val-fam">0</span>
+                <button class="btn-alloc" type="button" onclick="changeAttr('fam', 1)">+</button>
+            </div>
+            <div class="attr-alloc">
+                <label>幸运</label>
+                <button class="btn-alloc" type="button" onclick="changeAttr('luk', -1)">-</button>
+                <span class="attr-val" id="val-luk">0</span>
+                <button class="btn-alloc" type="button" onclick="changeAttr('luk', 1)">+</button>
+            </div>
+
+            <button type="button" class="btn-outline" style="width:100%; margin-top:1rem;" onclick="randomAlloc()">随机分配</button>
+        </div>
+
+        <!-- 天赋选择区域 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem; max-width:900px; margin-left:auto; margin-right:auto;">
+            <h3 style="font-weight:400; margin-bottom:0.5rem;">天赋选择</h3>
+            <p style="color:var(--text-secondary); margin-bottom:1.5rem; font-size:0.9rem;">最多选择 3 个天赋</p>
+
+            <div class="talent-grid">
+                #for(talent : talents)
+                <div class="talent-card" id="talent-#(talent.id)" onclick="toggleTalent(#(talent.id))">
+                    <h4>#(talent.name)</h4>
+                    <p>#(talent.description)</p>
+                </div>
+                #end
+            </div>
+
+            <p style="color:var(--text-secondary); font-size:0.9rem;">已选：<span id="talentCount">0</span>/3</p>
+        </div>
+
+        <!-- 提交表单 -->
+        <form id="startForm" action="/game/create" method="post" style="max-width:500px; margin:0 auto;">
+            <input type="hidden" name="intelligence" id="input-int" value="0">
+            <input type="hidden" name="appearance" id="input-chr" value="0">
+            <input type="hidden" name="constitution" id="input-phy" value="0">
+            <input type="hidden" name="family" id="input-fam" value="0">
+            <input type="hidden" name="luck" id="input-luk" value="0">
+            <div id="talent-inputs"></div>
+            <button type="submit" class="btn-primary" style="width:100%; padding:16px;" onclick="return validateStart()">开始人生</button>
+        </form>
+    </div>
+    #include("../common/footer.html")
+    <script src="/static/layui/layui.js"></script>
+    <script>
+        var TOTAL_POINTS = 20;
+        var attrs = { int: 0, chr: 0, phy: 0, fam: 0, luk: 0 };
+        var selectedTalents = [];
+
+        function getUsedPoints() {
+            var sum = 0;
+            for (var k in attrs) { sum += attrs[k]; }
+            return sum;
+        }
+
+        function updateDisplay() {
+            for (var k in attrs) {
+                document.getElementById('val-' + k).textContent = attrs[k];
+                document.getElementById('input-' + k).value = attrs[k];
+            }
+            document.getElementById('pointsLeft').textContent = TOTAL_POINTS - getUsedPoints();
+        }
+
+        function changeAttr(name, delta) {
+            var newVal = attrs[name] + delta;
+            if (newVal < 0) return;
+            if (delta > 0 && getUsedPoints() >= TOTAL_POINTS) return;
+            attrs[name] = newVal;
+            updateDisplay();
+        }
+
+        function randomAlloc() {
+            var keys = Object.keys(attrs);
+            // Reset all to 0
+            for (var k in attrs) { attrs[k] = 0; }
+            // Distribute randomly
+            for (var i = 0; i < TOTAL_POINTS; i++) {
+                var key = keys[Math.floor(Math.random() * keys.length)];
+                attrs[key]++;
+            }
+            updateDisplay();
+        }
+
+        function toggleTalent(id) {
+            var idx = selectedTalents.indexOf(id);
+            var card = document.getElementById('talent-' + id);
+            if (idx >= 0) {
+                selectedTalents.splice(idx, 1);
+                card.classList.remove('selected');
+            } else {
+                if (selectedTalents.length >= 3) return;
+                selectedTalents.push(id);
+                card.classList.add('selected');
+            }
+            document.getElementById('talentCount').textContent = selectedTalents.length;
+            // 动态创建 hidden input 传递天赋 ID
+            var container = document.getElementById('talent-inputs');
+            container.innerHTML = '';
+            for (var i = 0; i < selectedTalents.length; i++) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'talents';
+                input.value = selectedTalents[i];
+                container.appendChild(input);
+            }
+        }
+
+        function validateStart() {
+            if (getUsedPoints() !== TOTAL_POINTS) {
+                alert('属性点数必须分配完 20 点！当前已分配 ' + getUsedPoints() + ' 点。');
+                return false;
+            }
+            return true;
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

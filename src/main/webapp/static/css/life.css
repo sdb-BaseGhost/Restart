@@ -1,0 +1,475 @@
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #141414;
+    --bg-card: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --accent-cyan: #00f0ff;
+    --accent-purple: #a855f7;
+    --accent-gradient: linear-gradient(135deg, #00f0ff, #a855f7);
+    --danger: #ff4757;
+    --success: #2ed573;
+    --border: rgba(255,255,255,0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* 导航栏 */
+.nav-bar {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    transition: color 0.2s;
+}
+.nav-links a:hover {
+    color: var(--accent-cyan);
+}
+
+/* 主容器 */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* 按钮 */
+.btn-primary {
+    background: var(--accent-gradient);
+    color: #000;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    display: inline-block;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    opacity: 0.9;
+}
+.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    display: inline-block;
+    text-decoration: none;
+}
+.btn-outline:hover {
+    border-color: var(--accent-cyan);
+}
+
+/* 首页英雄区 */
+.hero {
+    text-align: center;
+    padding: 6rem 0;
+}
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+.hero p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* 认证页面（登录/注册） */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+.auth-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 400px;
+}
+.auth-card h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+}
+.error-msg {
+    background: rgba(255,71,87,0.1);
+    color: var(--danger);
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+.auth-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+}
+.auth-link a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+}
+
+/* 属性面板 */
+.attr-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.attr-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+}
+.attr-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+.attr-value {
+    font-size: 2rem;
+    font-weight: 200;
+}
+.attr-high { color: var(--accent-cyan); }
+.attr-mid { color: var(--text-primary); }
+.attr-low { color: var(--danger); }
+
+/* 进度条 */
+.attr-bar {
+    height: 4px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+.attr-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+.attr-bar-fill.high { background: var(--accent-cyan); }
+.attr-bar-fill.mid { background: var(--text-primary); }
+.attr-bar-fill.low { background: var(--danger); }
+
+/* 年龄显示 */
+.age-display {
+    text-align: center;
+    padding: 2rem 0;
+}
+.age-number {
+    font-size: 6rem;
+    font-weight: 100;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.age-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* 事件日志 */
+.event-log {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.event-log-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+.event-log-item:last-child {
+    border-bottom: none;
+}
+
+/* 下一年按钮 */
+.btn-next-year {
+    background: var(--accent-gradient);
+    color: #000;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    margin: 2rem auto;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-next-year:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,240,255,0.2);
+}
+
+/* 天赋卡片 */
+.talent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.talent-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.talent-card:hover {
+    border-color: var(--accent-purple);
+}
+.talent-card.selected {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0,240,255,0.15);
+}
+.talent-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.talent-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* 属性分配 */
+.attr-alloc {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.attr-alloc label {
+    width: 60px;
+    font-size: 0.9rem;
+}
+.attr-alloc .btn-alloc {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.attr-alloc .btn-alloc:hover {
+    border-color: var(--accent-cyan);
+}
+.attr-alloc .attr-val {
+    width: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+.points-remaining {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: var(--accent-cyan);
+}
+
+/* 结局页面 */
+.ending-container {
+    text-align: center;
+    padding: 4rem 0;
+}
+.ending-name {
+    font-size: 3rem;
+    font-weight: 200;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.ending-desc {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+.ending-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+/* 排行榜 */
+.rank-section {
+    margin-top: 2rem;
+}
+.rank-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+.rank-tab {
+    padding: 8px 24px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+.rank-tab.active {
+    background: var(--accent-gradient);
+    color: #000;
+    border-color: transparent;
+}
+.rank-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.rank-table th {
+    color: var(--text-secondary);
+    font-weight: 400;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+.rank-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+}
+.rank-table tr:hover td {
+    background: var(--bg-card);
+}
+
+/* 游戏主界面布局 */
+.game-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+}
+.game-sidebar {
+    position: sticky;
+    top: 80px;
+}
+.game-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+.pagination a, .pagination span {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.pagination .current {
+    background: var(--accent-gradient);
+    color: #000;
+    border-color: transparent;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .attr-panel {
+        grid-template-columns: 1fr;
+    }
+    .ending-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .talent-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}

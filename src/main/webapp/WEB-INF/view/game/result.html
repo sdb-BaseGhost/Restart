@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>人生结束 - 人生重开模拟器</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/life.css">
+</head>
+<body>
+    #include("../common/header.html")
+    <div class="main-container">
+        <div class="ending-container">
+            <!-- 结局名称 -->
+            <div class="ending-name">#(state.endingName)</div>
+
+            <!-- 结局描述 -->
+            <div class="ending-desc">#(description)</div>
+
+            <!-- 属性网格 -->
+            <div class="ending-stats">
+                <div class="attr-item">
+                    <div class="attr-name">智力</div>
+                    <div class="attr-value attr-mid">#(state.intelligence)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">颜值</div>
+                    <div class="attr-value attr-mid">#(state.appearance)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">体质</div>
+                    <div class="attr-value attr-mid">#(state.constitution)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">财富</div>
+                    <div class="attr-value attr-mid">#(state.wealth)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">健康</div>
+                    <div class="attr-value attr-mid">#(state.health)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">快乐</div>
+                    <div class="attr-value attr-mid">#(state.happiness)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">社交</div>
+                    <div class="attr-value attr-mid">#(state.social)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">家境</div>
+                    <div class="attr-value attr-mid">#(state.family)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">幸运</div>
+                    <div class="attr-value attr-mid">#(state.luck)</div>
+                </div>
+                <div class="attr-item">
+                    <div class="attr-name">成就</div>
+                    <div class="attr-value attr-mid">#(state.achievement)</div>
+                </div>
+            </div>
+
+            <!-- 事件回顾 -->
+            <div style="max-width:600px; margin:0 auto 3rem;">
+                <h3 style="font-weight:400; margin-bottom:1rem; text-align:left;">事件回顾</h3>
+                <div class="event-log">
+                    #if(state.eventLog)
+                        #for(event : state.eventLog)
+                        <div class="event-log-item">#(event)</div>
+                        #end
+                    #end
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div style="display:flex; gap:1rem; justify-content:center;">
+                <a href="/game/start" class="btn-primary">再来一次</a>
+                <a href="/" class="btn-outline">返回首页</a>
+            </div>
+        </div>
+    </div>
+    #include("../common/footer.html")
+    <script src="/static/layui/layui.js"></script>
+</body>
+</html>
