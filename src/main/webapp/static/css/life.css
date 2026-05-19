@@ -507,16 +507,24 @@ body {
 
 /* 响应式 */
 @media (max-width: 768px) {
-    .game-layout {
-        grid-template-columns: 1fr;
-    }
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
     }
     .attr-panel {
         grid-template-columns: 1fr;
     }
+    .ending-stats {
+        grid-template-columns: 1fr;
+    }
     .talent-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    .nav-content {
+        padding: 0 0.5rem;
+    }
+    .nav-links a {
+        margin-left: 0.8rem;
+        font-size: 0.8rem;
     }
 }
