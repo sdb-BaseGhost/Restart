@@ -458,13 +458,8 @@ body {
 
 /* 游戏主界面布局 */
 .game-layout {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 2rem;
-}
-.game-sidebar {
-    position: sticky;
-    top: 80px;
+    max-width: 520px;
+    margin: 0 auto;
 }
 .game-main {
     display: flex;

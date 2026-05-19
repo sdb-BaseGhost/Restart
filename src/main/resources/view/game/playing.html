@@ -12,192 +12,87 @@
     <div class="main-container">
         <div class="game-layout">
 
-            <!-- 左侧属性面板 -->
-            <div class="game-sidebar">
+            <!-- 年龄显示 -->
+            <div class="age-display">
+                <div style="font-size:0.8rem; color:var(--text-secondary); letter-spacing:3px;">— 当 前 —</div>
+                <div class="age-number">#(state.age)</div>
+                <div class="age-label">岁</div>
+            </div>
+
+            <!-- 属性面板 -->
+            <div style="border:1px solid var(--border); border-radius:4px; padding:1rem; margin-bottom:1.5rem; background:var(--bg-card);">
+                <div style="font-size:0.8rem; font-weight:bold; color:var(--text-secondary); text-align:center; letter-spacing:2px; margin-bottom:0.8rem;">— 属性 —</div>
                 <div class="attr-panel">
-                    #define attrItem(name, value, engName)
-                    <div class="attr-item">
-                        <div class="attr-name">#(name)</div>
-                        <div class="attr-value #(value > 70 ? 'attr-high' : (value >= 40 ? 'attr-mid' : 'attr-low'))">#(value)</div>
-                        <div class="attr-bar">
-                            <div class="attr-bar-fill #(value > 70 ? 'high' : (value >= 40 ? 'mid' : 'low'))" style="width:#(value)%;"></div>
-                        </div>
-                    </div>
-                    #end
-
-                    #define renderAttr(name, value)
-                    <div class="attr-item">
-                        <div class="attr-name">#(name)</div>
-                        #if(value > 70)
-                        <div class="attr-value attr-high">#(value)</div>
-                        <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(value)%;"></div></div>
-                        #elseif(value >= 40)
-                        <div class="attr-value attr-mid">#(value)</div>
-                        <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(value)%;"></div></div>
-                        #else
-                        <div class="attr-value attr-low">#(value)</div>
-                        <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(value)%;"></div></div>
-                        #end
-                    </div>
-                    #end
-
                     #if(state)
                         <div class="attr-item">
-                            <div class="attr-name">智力</div>
-                            #if(state.intelligence > 70)
-                            <div class="attr-value attr-high">#(state.intelligence)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.intelligence)%;"></div></div>
-                            #elseif(state.intelligence >= 40)
-                            <div class="attr-value attr-mid">#(state.intelligence)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.intelligence)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.intelligence)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.intelligence)%;"></div></div>
-                            #end
+                            <span class="attr-name">智力</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.intelligence)%;"></div></div>
+                            <span class="attr-value #(state.intelligence > 70 ? 'attr-high' : (state.intelligence >= 40 ? 'attr-mid' : 'attr-low'))">#(state.intelligence)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">颜值</div>
-                            #if(state.appearance > 70)
-                            <div class="attr-value attr-high">#(state.appearance)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.appearance)%;"></div></div>
-                            #elseif(state.appearance >= 40)
-                            <div class="attr-value attr-mid">#(state.appearance)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.appearance)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.appearance)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.appearance)%;"></div></div>
-                            #end
+                            <span class="attr-name">颜值</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.appearance)%;"></div></div>
+                            <span class="attr-value #(state.appearance > 70 ? 'attr-high' : (state.appearance >= 40 ? 'attr-mid' : 'attr-low'))">#(state.appearance)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">体质</div>
-                            #if(state.constitution > 70)
-                            <div class="attr-value attr-high">#(state.constitution)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.constitution)%;"></div></div>
-                            #elseif(state.constitution >= 40)
-                            <div class="attr-value attr-mid">#(state.constitution)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.constitution)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.constitution)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.constitution)%;"></div></div>
-                            #end
+                            <span class="attr-name">体质</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.constitution)%;"></div></div>
+                            <span class="attr-value #(state.constitution > 70 ? 'attr-high' : (state.constitution >= 40 ? 'attr-mid' : 'attr-low'))">#(state.constitution)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">家境</div>
-                            #if(state.family > 70)
-                            <div class="attr-value attr-high">#(state.family)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.family)%;"></div></div>
-                            #elseif(state.family >= 40)
-                            <div class="attr-value attr-mid">#(state.family)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.family)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.family)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.family)%;"></div></div>
-                            #end
+                            <span class="attr-name">家境</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.family)%;"></div></div>
+                            <span class="attr-value #(state.family > 70 ? 'attr-high' : (state.family >= 40 ? 'attr-mid' : 'attr-low'))">#(state.family)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">幸运</div>
-                            #if(state.luck > 70)
-                            <div class="attr-value attr-high">#(state.luck)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.luck)%;"></div></div>
-                            #elseif(state.luck >= 40)
-                            <div class="attr-value attr-mid">#(state.luck)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.luck)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.luck)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.luck)%;"></div></div>
-                            #end
+                            <span class="attr-name">幸运</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.luck)%;"></div></div>
+                            <span class="attr-value #(state.luck > 70 ? 'attr-high' : (state.luck >= 40 ? 'attr-mid' : 'attr-low'))">#(state.luck)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">财富</div>
-                            #if(state.wealth > 70)
-                            <div class="attr-value attr-high">#(state.wealth)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.wealth)%;"></div></div>
-                            #elseif(state.wealth >= 40)
-                            <div class="attr-value attr-mid">#(state.wealth)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.wealth)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.wealth)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.wealth)%;"></div></div>
-                            #end
+                            <span class="attr-name">财富</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.wealth)%;"></div></div>
+                            <span class="attr-value #(state.wealth > 70 ? 'attr-high' : (state.wealth >= 40 ? 'attr-mid' : 'attr-low'))">#(state.wealth)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">健康</div>
-                            #if(state.health > 70)
-                            <div class="attr-value attr-high">#(state.health)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.health)%;"></div></div>
-                            #elseif(state.health >= 40)
-                            <div class="attr-value attr-mid">#(state.health)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.health)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.health)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.health)%;"></div></div>
-                            #end
+                            <span class="attr-name">健康</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.health)%;"></div></div>
+                            <span class="attr-value #(state.health > 70 ? 'attr-high' : (state.health >= 40 ? 'attr-mid' : 'attr-low'))">#(state.health)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">学识</div>
-                            #if(state.knowledge > 70)
-                            <div class="attr-value attr-high">#(state.knowledge)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.knowledge)%;"></div></div>
-                            #elseif(state.knowledge >= 40)
-                            <div class="attr-value attr-mid">#(state.knowledge)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.knowledge)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.knowledge)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.knowledge)%;"></div></div>
-                            #end
+                            <span class="attr-name">学识</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.knowledge)%;"></div></div>
+                            <span class="attr-value #(state.knowledge > 70 ? 'attr-high' : (state.knowledge >= 40 ? 'attr-mid' : 'attr-low'))">#(state.knowledge)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">社交</div>
-                            #if(state.social > 70)
-                            <div class="attr-value attr-high">#(state.social)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.social)%;"></div></div>
-                            #elseif(state.social >= 40)
-                            <div class="attr-value attr-mid">#(state.social)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.social)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.social)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.social)%;"></div></div>
-                            #end
+                            <span class="attr-name">社交</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.social)%;"></div></div>
+                            <span class="attr-value #(state.social > 70 ? 'attr-high' : (state.social >= 40 ? 'attr-mid' : 'attr-low'))">#(state.social)</span>
                         </div>
                         <div class="attr-item">
-                            <div class="attr-name">成就</div>
-                            #if(state.achievement > 70)
-                            <div class="attr-value attr-high">#(state.achievement)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill high" style="width:#(state.achievement)%;"></div></div>
-                            #elseif(state.achievement >= 40)
-                            <div class="attr-value attr-mid">#(state.achievement)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill mid" style="width:#(state.achievement)%;"></div></div>
-                            #else
-                            <div class="attr-value attr-low">#(state.achievement)</div>
-                            <div class="attr-bar"><div class="attr-bar-fill low" style="width:#(state.achievement)%;"></div></div>
-                            #end
+                            <span class="attr-name">成就</span>
+                            <div class="attr-bar"><div class="attr-bar-fill" style="width:#(state.achievement)%;"></div></div>
+                            <span class="attr-value #(state.achievement > 70 ? 'attr-high' : (state.achievement >= 40 ? 'attr-mid' : 'attr-low'))">#(state.achievement)</span>
                         </div>
                     #end
                 </div>
             </div>
 
-            <!-- 中间主区域 -->
-            <div class="game-main">
-                <!-- 年龄显示 -->
-                <div class="age-display">
-                    <div class="age-number">#(state.age)</div>
-                    <div class="age-label">岁</div>
-                </div>
-
-                <!-- 事件日志 -->
-                <div class="event-log" id="eventLog">
-                    #if(state.eventLog)
-                        #for(i = state.eventLog.size() - 1; i >= 0; i--)
-                        <div class="event-log-item">#(state.eventLog[i])</div>
-                        #end
+            <!-- 事件日志 -->
+            <div class="event-log" id="eventLog">
+                <div style="font-size:0.8rem; font-weight:bold; color:var(--text-secondary); text-align:center; letter-spacing:2px; margin-bottom:0.8rem;">— 人生故事 —</div>
+                #if(state.eventLog)
+                    #for(event : state.eventLog)
+                    <p>#(event)</p>
                     #end
-                </div>
-
-                <!-- 下一年按钮 -->
-                <form action="/game/nextYear" method="post" style="margin-top:2rem;">
-                    <button type="submit" class="btn-next-year">下一年</button>
-                </form>
+                #end
+                <div class="age-marker">— 第 #(state.age) 岁 · 待续 —</div>
             </div>
+
+            <!-- 下一年按钮 -->
+            <form action="/game/nextYear" method="post" style="margin-top:1rem;">
+                <button type="submit" class="btn-next-year">翻 开 下 一 页</button>
+            </form>
 
         </div>
     </div>
