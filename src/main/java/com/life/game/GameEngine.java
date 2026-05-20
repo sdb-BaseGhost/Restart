@@ -120,20 +120,21 @@ public class GameEngine {
     }
 
     /**
-     * 返回年龄对应的事件池标识
+     * 按年龄过滤事件：只保留 min_age <= age <= max_age 的事件
      */
-    public static String getEventPool(int age) {
-        if (age <= 6) {
-            return "childhood";
-        } else if (age <= 18) {
-            return "school";
-        } else if (age <= 30) {
-            return "youth";
-        } else if (age <= 50) {
-            return "middle";
-        } else {
-            return "elder";
+    public static List<Event> filterEventsByAge(int age, List<Event> events) {
+        if (events == null || events.isEmpty()) {
+            return events;
         }
+        List<Event> filtered = new ArrayList<>();
+        for (Event event : events) {
+            int minAge = event.getInt("min_age");
+            int maxAge = event.getInt("max_age");
+            if (age >= minAge && age <= maxAge) {
+                filtered.add(event);
+            }
+        }
+        return filtered;
     }
 
     /**
@@ -145,21 +146,27 @@ public class GameEngine {
             return events;
         }
         Map<String, Integer> props = state.toConditionMap();
+        Map<String, Set<Integer>> setProps = state.toSetConditionMap();
         List<Event> filtered = new ArrayList<>();
         for (Event event : events) {
+            // 标记为 no_repeat 的事件只触发一次
+            if (event.getInt("no_repeat") == 1 && state.hasTriggeredEvent(event.getInt("id"))) {
+                continue;
+            }
+
             String includeCond = event.getStr("include_cond");
             String excludeCond = event.getStr("exclude_cond");
 
             // include_cond 为空表示无条件触发，非空则必须满足
             if (includeCond != null && !includeCond.isEmpty()) {
-                if (!ConditionParser.evaluate(includeCond, props)) {
+                if (!ConditionParser.evaluate(includeCond, props, setProps)) {
                     continue;
                 }
             }
 
             // exclude_cond 为空表示不排除，非空则满足时排除
             if (excludeCond != null && !excludeCond.isEmpty()) {
-                if (ConditionParser.evaluate(excludeCond, props)) {
+                if (ConditionParser.evaluate(excludeCond, props, setProps)) {
                     continue;
                 }
             }
@@ -340,7 +347,8 @@ public class GameEngine {
     /**
      * 将属性变化应用到 state，支持的属性名：
      * intelligence, appearance, constitution, family, luck,
-     * wealth, health, knowledge, social, achievement
+     * wealth, health, knowledge, social, achievement,
+     * life, age_change
      * 变化后 clamp 到 0-100（财富和成就无上限）
      */
     private static void applyAttributeBonus(GameState state, String attr, int value) {
@@ -374,6 +382,21 @@ public class GameEngine {
                 break;
             case "achievement":
                 state.setAchievement(state.getAchievement() + value); // 成就无上限
+                break;
+            case "life":
+                // life=-1 表示死亡，life=1 表示复活
+                if (value < 0) {
+                    state.setAlive(false);
+                    state.setHealth(0);
+                } else if (value > 0) {
+                    state.setAlive(true);
+                    if (state.getHealth() <= 0) {
+                        state.setHealth(1);
+                    }
+                }
+                break;
+            case "age_change":
+                state.setAge(state.getAge() + value);
                 break;
             default:
                 // 未知属性忽略
@@ -442,6 +465,24 @@ public class GameEngine {
                             : specialValue >= specialThreshold;
 
                     return hasTalent && attrMet;
+                }
+                return false;
+
+            case "dual_attribute":
+                // 双属性条件：两个属性同时满足阈值
+                if (conditionValue != null) {
+                    String attr1 = conditionValue.getString("attr1");
+                    int threshold1 = conditionValue.getIntValue("threshold1");
+                    String attr2 = conditionValue.getString("attr2");
+                    int threshold2 = conditionValue.getIntValue("threshold2");
+
+                    int val1 = getAttributeValue(state, attr1);
+                    int val2 = getAttributeValue(state, attr2);
+
+                    boolean met1 = threshold1 < 0 ? val1 <= threshold1 : val1 >= threshold1;
+                    boolean met2 = threshold2 < 0 ? val2 <= threshold2 : val2 >= threshold2;
+
+                    return met1 && met2;
                 }
                 return false;
 

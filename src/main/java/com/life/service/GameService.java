@@ -57,12 +57,13 @@ public class GameService {
         state.setAge(state.getAge() + 1);
         GameEngine.applyTalentGrowth(state);
 
-        String pool = GameEngine.getEventPool(state.getAge());
-        List<Event> poolEvents = CacheService.me.getEventsByPool(pool);
-        List<Event> filtered = GameEngine.filterEventsByCondition(state, poolEvents);
+        List<Event> allEvents = CacheService.me.getAllEvents();
+        List<Event> ageFiltered = GameEngine.filterEventsByAge(state.getAge(), allEvents);
+        List<Event> filtered = GameEngine.filterEventsByCondition(state, ageFiltered);
         Event event = GameEngine.selectRandomEvent(filtered);
 
         if (event != null) {
+            state.markEventTriggered(event.getInt("id"));
             GameEngine.applyEventEffect(state, event.getStr("effects"));
             state.addEventLog("【" + state.getAge() + "岁】" + event.getStr("name") + "：" + event.getStr("description"));
             result.put("event", event);
@@ -92,7 +93,7 @@ public class GameService {
         gr.set("final_age", state.getAge());
         gr.set("wealth", state.getWealth());
         gr.set("health", state.getHealth());
-        gr.set("happiness", state.getKnowledge());
+        gr.set("knowledge", state.getKnowledge());
         gr.set("social", state.getSocial());
         gr.set("achievement", state.getAchievement());
         gr.set("ending_name", state.getEndingName());
