@@ -52,6 +52,12 @@ public class GameController extends Controller {
         setAttr("loginUser", getSessionAttr("loginUser"));
         GameState state = getSessionAttr("gameState");
         setAttr("state", state);
+        // 事件日志反转：最新的在最上面，避免玩家滚动
+        if (state.getEventLog() != null) {
+            List<String> reversed = new ArrayList<>(state.getEventLog());
+            Collections.reverse(reversed);
+            setAttr("reversedEventLog", reversed);
+        }
         render("playing.html");
     }
 
@@ -86,6 +92,11 @@ public class GameController extends Controller {
         String description = EndingService.me.getEndingDescription(state.getEndingName());
         setAttr("state", state);
         setAttr("description", description);
+        if (state.getEventLog() != null) {
+            List<String> reversed = new ArrayList<>(state.getEventLog());
+            Collections.reverse(reversed);
+            setAttr("reversedEventLog", reversed);
+        }
         render("result.html");
     }
 

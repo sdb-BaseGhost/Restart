@@ -81,8 +81,8 @@
             <!-- 事件日志 -->
             <div class="event-log" id="eventLog">
                 <div style="font-size:0.8rem; font-weight:bold; color:var(--text-secondary); text-align:center; letter-spacing:2px; margin-bottom:0.8rem;">— 人生故事 —</div>
-                #if(state.eventLog)
-                    #for(event : state.eventLog)
+                #if(reversedEventLog)
+                    #for(event : reversedEventLog)
                     <p>#(event)</p>
                     #end
                 #end

@@ -66,8 +66,8 @@
             <div style="max-width:600px; margin:0 auto 3rem;">
                 <h3 style="font-weight:bold; margin-bottom:1rem; text-align:center; color:var(--text-secondary); letter-spacing:2px; font-size:1rem;">— 人生回顾 —</h3>
                 <div class="event-log">
-                    #if(state.eventLog)
-                        #for(event : state.eventLog)
+                    #if(reversedEventLog)
+                        #for(event : reversedEventLog)
                         <p>#(event)</p>
                         #end
                     #end
