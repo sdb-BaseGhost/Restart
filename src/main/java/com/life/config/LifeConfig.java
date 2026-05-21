@@ -41,7 +41,7 @@ public class LifeConfig extends JFinalConfig {
         // MySQL + Druid
         DruidPlugin druidPlugin = new DruidPlugin(
                 "jdbc:mysql://localhost:3306/life_restart?characterEncoding=utf8&serverTimezone=Asia/Shanghai",
-                "root", "1019fxmm",
+                "root", "1234",
                 "com.mysql.cj.jdbc.Driver"
         );
         me.add(druidPlugin);

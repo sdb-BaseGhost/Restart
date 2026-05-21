@@ -107,6 +107,15 @@ public class GameController extends Controller {
         int pageNum = getParaToInt("page", 1);
         Page<GameResult> page = GameService.me.getHistory(user.getInt("id"), pageNum, 10);
         setAttr("page", page);
+
+        // 生成页码范围
+        List<Integer> pageRange = new ArrayList<>();
+        int totalPage = page.getTotalPage();
+        for (int i = 1; i <= totalPage; i++) {
+            pageRange.add(i);
+        }
+        setAttr("pageRange", pageRange);
+
         render("history.html");
     }
 

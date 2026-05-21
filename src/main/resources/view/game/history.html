@@ -62,7 +62,7 @@
             #if(page.pageNumber > 1)
                 <a href="/game/history?page=#(page.pageNumber - 1)">上一页</a>
             #end
-            #for(i : page.pageRange)
+            #for(i : pageRange)
                 #if(i == page.pageNumber)
                     <span class="current">#(i)</span>
                 #else
